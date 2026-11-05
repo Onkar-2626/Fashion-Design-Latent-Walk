@@ -1,0 +1,62 @@
+[
+  {
+    "file": "assets/gallery/g0.png",
+    "cnn_label": "Ankle boot",
+    "cnn_conf": 0.997
+  },
+  {
+    "file": "assets/gallery/g1.png",
+    "cnn_label": "Ankle boot",
+    "cnn_conf": 1.0
+  },
+  {
+    "file": "assets/gallery/g2.png",
+    "cnn_label": "Sneaker",
+    "cnn_conf": 0.998
+  },
+  {
+    "file": "assets/gallery/g3.png",
+    "cnn_label": "Pullover",
+    "cnn_conf": 0.449
+  },
+  {
+    "file": "assets/gallery/g4.png",
+    "cnn_label": "Ankle boot",
+    "cnn_conf": 0.999
+  },
+  {
+    "file": "assets/gallery/g5.png",
+    "cnn_label": "Trouser",
+    "cnn_conf": 1.0
+  },
+  {
+    "file": "assets/gallery/g6.png",
+    "cnn_label": "Shirt",
+    "cnn_conf": 0.842
+  },
+  {
+    "file": "assets/gallery/g7.png",
+    "cnn_label": "Shirt",
+    "cnn_conf": 0.479
+  },
+  {
+    "file": "assets/gallery/g8.png",
+    "cnn_label": "Coat",
+    "cnn_conf": 0.773
+  },
+  {
+    "file": "assets/gallery/g9.png",
+    "cnn_label": "Bag",
+    "cnn_conf": 0.999
+  },
+  {
+    "file": "assets/gallery/g10.png",
+    "cnn_label": "Dress",
+    "cnn_conf": 0.632
+  },
+  {
+    "file": "assets/gallery/g11.png",
+    "cnn_label": "Bag",
+    "cnn_conf": 0.977
+  }
+]

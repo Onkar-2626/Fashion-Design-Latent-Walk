@@ -1,0 +1,44 @@
+{
+  "n_samples": 5000,
+  "classes": [
+    "T-shirt/top",
+    "Trouser",
+    "Pullover",
+    "Dress",
+    "Coat",
+    "Sandal",
+    "Shirt",
+    "Sneaker",
+    "Bag",
+    "Ankle boot"
+  ],
+  "counts": [
+    408,
+    507,
+    389,
+    419,
+    514,
+    403,
+    664,
+    535,
+    628,
+    533
+  ],
+  "percent": [
+    8.16,
+    10.14,
+    7.78,
+    8.38,
+    10.28,
+    8.06,
+    13.28,
+    10.7,
+    12.56,
+    10.66
+  ],
+  "chi_square": 165.2,
+  "critical_value_p05": 16.92,
+  "balanced": false,
+  "max_min_ratio": 1.71,
+  "mean_classifier_confidence": 0.819
+}

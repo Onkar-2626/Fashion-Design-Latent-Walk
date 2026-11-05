@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fashion-MNIST DCGAN Latent Walk</title>
+<link rel="stylesheet" href="style.css">
+<script>
+function missing(name){var d=document.createElement("div");d.className="missing";d.textContent=name+" not found yet. Run the training scripts (see README) and redeploy.";return d;}
+</script>
+</head>
+<body>
+<header>
+  <h1>Fashion-MNIST DCGAN &middot; Latent Walk</h1>
+  <p>A small GAN generates clothing items from a 100-number noise vector. Move through that latent space and watch one item morph into another. The generator runs live in your browser.</p>
+</header>
+
+<main>
+<!-- ============ U1 ============ -->
+<section class="card">
+  <h2>1. Generative vs discriminative</h2>
+  <svg viewBox="0 0 760 240" class="diagram" role="img" aria-label="Discriminative model maps image to label; generative model maps noise vector to image">
+    <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>
+    <g font-size="14" fill="currentColor" stroke="currentColor">
+      <text x="190" y="24" text-anchor="middle" font-weight="700" stroke="none">Discriminative: p(label | image)</text>
+      <rect x="20" y="60" width="90" height="50" rx="8" fill="none"/><text x="65" y="90" text-anchor="middle" stroke="none">Image</text>
+      <line x1="110" y1="85" x2="150" y2="85" marker-end="url(#ar)"/>
+      <rect x="152" y="60" width="110" height="50" rx="8" class="hl"/><text x="207" y="90" text-anchor="middle" stroke="none">Classifier</text>
+      <line x1="262" y1="85" x2="298" y2="85" marker-end="url(#ar)"/>
+      <rect x="300" y="60" width="80" height="50" rx="8" fill="none"/><text x="340" y="90" text-anchor="middle" stroke="none">Label</text>
+      <text x="190" y="135" text-anchor="middle" stroke="none" font-size="12" opacity=".75">"Which class is this?"</text>
+
+      <text x="570" y="24" text-anchor="middle" font-weight="700" stroke="none">Generative: p(image) from noise z</text>
+      <rect x="410" y="60" width="100" height="50" rx="8" class="accent"/><text x="460" y="82" text-anchor="middle" stroke="none">z (100-d</text><text x="460" y="99" text-anchor="middle" stroke="none">latent noise)</text>
+      <line x1="510" y1="85" x2="548" y2="85" marker-end="url(#ar)"/>
+      <rect x="550" y="60" width="110" height="50" rx="8" class="hl"/><text x="605" y="90" text-anchor="middle" stroke="none">Generator</text>
+      <line x1="660" y1="85" x2="688" y2="85" marker-end="url(#ar)"/>
+      <rect x="690" y="60" width="60" height="50" rx="8" fill="none"/><text x="720" y="90" text-anchor="middle" stroke="none">Image</text>
+      <text x="570" y="135" text-anchor="middle" stroke="none" font-size="12" opacity=".75">"Make me a new one."</text>
+    </g>
+    <g font-size="13" fill="currentColor" stroke="none">
+      <text x="20" y="185">In a GAN the <tspan font-weight="700">discriminator</tspan> is the classifier above (real vs fake) and the <tspan font-weight="700">generator</tspan> learns to fool it.</text>
+      <text x="20" y="208">The noise vector z is the <tspan font-weight="700">latent space</tspan>: nearby points give similar images,</text>
+      <text x="20" y="228">so walking between two points morphs one item into the other.</text>
+    </g>
+  </svg>
+</section>
+
+<!-- ============ U4 ============ -->
+<section class="card">
+  <h2>2. Latent walk: morph one item into another</h2>
+  <p id="status" class="status">Loading generator&hellip;</p>
+  <div class="morph">
+    <figure><canvas id="cA" width="28" height="28"></canvas><figcaption>Start (A)</figcaption></figure>
+    <figure><canvas id="cM" width="28" height="28" class="big"></canvas><figcaption id="tLabel">t = 0.50</figcaption></figure>
+    <figure><canvas id="cB" width="28" height="28"></canvas><figcaption>End (B)</figcaption></figure>
+  </div>
+  <div class="row palette-row"><label for="palette">&#127912; Colour theme</label>
+    <select id="palette"></select><button id="surprise" type="button">&#10024; Surprise me</button></div>
+  <label class="row">Morph position
+    <input id="t" type="range" min="0" max="100" value="50"></label>
+  <div class="btns">
+    <button id="newA">New A</button><button id="newB">New B</button>
+    <button id="play">&#9654; Animate</button><button id="download">Save frame (PNG)</button>
+  </div>
+
+  <h3>Latent sliders</h3>
+  <p class="hint">Each slider moves one coordinate of z (first 8 of 100). Small moves change style; big ones change the item.</p>
+  <div id="sliders" class="sliders"></div>
+  <div class="btns"><button id="rand">Random base vector</button><button id="reset">Reset sliders</button></div>
+
+  <h3>Pre-rendered interpolation GIF</h3>
+  <img src="assets/morph.gif" alt="Interpolation GIF of generated items" class="gif tint" onerror="this.replaceWith(missing('morph.gif'))">
+</section>
+
+<!-- ============ U2 ============ -->
+<section class="card">
+  <h2>3. Training: DCGAN vs VAE</h2>
+  <p id="metaLine" class="hint"></p>
+  <div class="grid2">
+    <figure><img src="assets/loss_curve.png" alt="Loss curves" onerror="this.replaceWith(missing('loss_curve.png'))"><figcaption>DCGAN generator and discriminator loss</figcaption></figure>
+    <figure><img class="tint" src="assets/dcgan_samples.png" alt="DCGAN samples" onerror="this.replaceWith(missing('dcgan_samples.png'))"><figcaption>DCGAN samples (sharper, no class control)</figcaption></figure>
+    <figure><img class="tint" src="assets/dcgan_epoch_1.png" alt="DCGAN after epoch 1" onerror="this.replaceWith(missing('dcgan_epoch_1.png'))"><figcaption>DCGAN after epoch 1 (blobs)</figcaption></figure>
+    <figure><img class="tint" src="assets/vae_samples.png" alt="VAE samples" onerror="this.replaceWith(missing('vae_samples.png'))"><figcaption>VAE samples (smoother, blurrier)</figcaption></figure>
+  </div>
+  <p>A GAN trains two networks against each other, so images are sharp but training can be unstable (see the curves). A VAE learns an encoder and decoder with a smooth latent space and a stable loss, but its averaging makes outputs blurry.</p>
+</section>
+
+<!-- ============ U3 ============ -->
+<section class="card">
+  <h2>4. Captions: GPT writes, BERT checks</h2>
+  <p>distilgpt2 writes a caption for each generated item. A DistilBERT classifier then predicts the category from the caption text, and we compare it with the image classifier's label.</p>
+  <p id="capSummary" class="hint"></p>
+  <div id="gallery" class="gallery"></div>
+  <p class="hint"><b>Limitation:</b> the caption prompt contains the image classifier's label, so a match mainly shows the caption stayed on topic. If the image classifier is wrong, the caption is wrong too.</p>
+</section>
+
+<!-- ============ U5 ============ -->
+<section class="card">
+  <h2>5. Responsible AI</h2>
+  <h3>Are the generated classes balanced?</h3>
+  <p>5,000 random images were classified by a small CNN. A perfectly balanced generator gives 10% per class.</p>
+  <div id="balance"></div>
+  <img src="assets/balance.png" alt="Class balance chart" class="gif" onerror="this.remove()">
+  <h3>Licence note</h3>
+  <p>Dataset: <b>Fashion-MNIST</b> &copy; Zalando SE, released under the <b>MIT License</b>. Cite: Xiao, Rasul, Vollgraf (2017), arXiv:1708.07747. Captions use <b>distilgpt2</b> and <b>distilbert-base-uncased</b> (Apache-2.0 on Hugging Face). Project code: MIT. Generated images are synthetic 28&times;28 grayscale clothing icons.</p>
+  <h3>Safety notes</h3>
+  <ul>
+    <li>The model only draws clothing silhouettes, but it can still produce malformed or ambiguous items.</li>
+    <li>Captions come from a language model and may be generic or wrong. Treat them as demo text, not product facts.</li>
+    <li>No user data is collected; everything runs in your browser.</li>
+  </ul>
+</section>
+</main>
+<footer>Built for the Generative AI CA project &middot; see README and MODEL_CARD in the repository.</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.17.1/dist/ort.min.js" onerror="window.ortFailed=true"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+{
+  "agreement": 1.0,
+  "n": 12,
+  "items": [
+    {
+      "file": "assets/gallery/g0.png",
+      "cnn_label": "Ankle boot",
+      "cnn_conf": 0.997,
+      "caption": "A product photo of a ankle boot, which is also a boot.",
+      "bert_label": "Ankle boot",
+      "bert_conf": 0.985,
+      "match": true
+    },
+    {
+      "file": "assets/gallery/g1.png",
+      "cnn_label": "Ankle boot",
+      "cnn_conf": 1.0,
+      "caption": "A product photo of a ankle boot, which is usually a full length boot.",
+      "bert_label": "Ankle boot",
+      "bert_conf": 0.985,
+      "match": true
+    },
+    {
+      "file": "assets/gallery/g2.png",
+      "cnn_label": "Sneaker",
+      "cnn_conf": 0.998,
+      "caption": "A product photo of a sneaker, which is shown in this picture, which was first reported by the New York Times.",
+      "bert_label": "Sneaker",
+      "bert_conf": 0.985,
+      "match": true
+    },
+    {
+      "file": "assets/gallery/g3.png",
+      "cnn_label": "Pullover",
+      "cnn_conf": 0.449,
+      "caption": "A product photo of a pullover, which is now in the works with a new paintbrush.",
+      "bert_label": "Pullover",
+      "bert_conf": 0.857,
+      "match": true
+    },
+    {
+      "file": "assets/gallery/g4.png",
+      "cnn_label": "Ankle boot",
+      "cnn_conf": 0.999,
+      "caption": "A product photo of a ankle boot, which is often made from a piece of leather.",
+      "bert_label": "Ankle boot",
+      "bert_conf": 0.984,
+      "match": true
+    },
+    {
+      "file": "assets/gallery/g5.png",
+      "cnn_label": "Trouser",
+      "cnn_conf": 1.0,
+      "caption": "A product photo of a trousers, which is made from a combination of wool fabric and nylon, is displayed at the.",
+      "bert_label": "Trouser",
+      "bert_conf": 0.972,
+      "match": true
+    },
+    {
+      "file": "assets/gallery/g6.png",
+      "cnn_label": "Shirt",
+      "cnn_conf": 0.842,
+      "caption": "A product photo of a shirt, which is only available in the US from the USA Today.",
+      "bert_label": "Shirt",
+      "bert_conf": 0.981,
+      "match": true
+    },
+    {
+      "file": "assets/gallery/g7.png",
+      "cnn_label": "Shirt",
+      "cnn_conf": 0.479,
+      "caption": "A product photo of a shirt, which is not yet on sale.",
+      "bert_label": "Shirt",
+      "bert_conf": 0.982,
+      "match": true
+    },
+    {
+      "file": "assets/gallery/g8.png",
+      "cnn_label": "Coat",
+      "cnn_conf": 0.773,
+      "caption": "A product photo of a coat, which is shown in the photo.",
+      "bert_label": "Coat",
+      "bert_conf": 0.973,
+      "match": true
+    },
+    {
+      "file": "assets/gallery/g9.png",
+      "cnn_label": "Bag",
+      "cnn_conf": 0.999,
+      "caption": "A product photo of a bag, which is made of a variety of materials.",
+      "bert_label": "Bag",
+      "bert_conf": 0.98,
+      "match": true
+    },
+    {
+      "file": "assets/gallery/g10.png",
+      "cnn_label": "Dress",
+      "cnn_conf": 0.632,
+      "caption": "A product photo of a dress, which is one of several examples of the \u201cdesign,\u201c that is.",
+      "bert_label": "Dress",
+      "bert_conf": 0.978,
+      "match": true
+    },
+    {
+      "file": "assets/gallery/g11.png",
+      "cnn_label": "Bag",
+      "cnn_conf": 0.977,
+      "caption": "A product photo of a bag, which is a keystone for the UK\u2019s economy.",
+      "bert_label": "Bag",
+      "bert_conf": 0.979,
+      "match": true
+    }
+  ]
+}
